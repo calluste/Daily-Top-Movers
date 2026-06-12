@@ -141,3 +141,13 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+.terraform.lock.hcl
+
+# Environment / secrets
+.env
+.env.*
