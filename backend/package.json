@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc",
+    "build:ingest": "esbuild src/ingest/handler.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/ingest/index.mjs '--external:@aws-sdk/*' && cd dist/ingest && zip -r ../../ingest.zip index.mjs && cd ../.."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.162",
+    "@types/node": "^25.9.3",
+    "esbuild": "^0.28.1",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1067.0",
+    "@aws-sdk/client-secrets-manager": "^3.1067.0",
+    "@aws-sdk/lib-dynamodb": "^3.1067.0"
+  }
+}
