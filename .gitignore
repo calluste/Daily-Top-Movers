@@ -146,7 +146,7 @@ vite.config.ts.timestamp-*
 *.tfstate.*
 .terraform/
 *.tfvars
-.terraform.lock.hcl
+
 
 # Environment / secrets
 .env
