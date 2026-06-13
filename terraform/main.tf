@@ -1,6 +1,13 @@
 terraform {
   required_version = ">= 1.5"
 
+  backend "s3" {
+    bucket  = "stocks-pipeline-tfstate-957667616828"
+    key     = "stocks-pipeline/terraform.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"

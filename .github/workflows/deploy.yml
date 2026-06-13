@@ -1,0 +1,58 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build backend Lambdas
+        working-directory: backend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: terraform
+        env:
+          TF_VAR_massive_api_key: ${{ secrets.MASSIVE_API_KEY }}
+        run: terraform apply -auto-approve
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          VITE_API_URL: https://vmvp0gbqy9.execute-api.us-east-1.amazonaws.com
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy frontend to S3
+        run: aws s3 sync frontend/dist/ s3://stocks-pipeline-frontend-957667616828/ --delete
