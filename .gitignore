@@ -155,3 +155,6 @@ vite.config.ts.timestamp-*
 # Build artifacts
 backend/dist/
 backend/*.zip
+
+# Frontend build output
+frontend/dist/
