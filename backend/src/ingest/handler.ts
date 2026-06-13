@@ -60,8 +60,8 @@ async function fetchWithRetry(url: string, maxRetries = 3): Promise<GroupedRespo
   throw new Error(`API failed after ${maxRetries} retries: ${lastError.message}`);
 }
 
-export const handler = async (): Promise<void> => {
-  const date = getTargetDate();
+export const handler = async (event?: { date?: string }): Promise<void> => {
+  const date = event?.date ?? getTargetDate();
   console.log(`Ingesting top mover for ${date}`);
 
   const secret = await secretsClient.send(new GetSecretValueCommand({ SecretId: SECRET_ID }));
