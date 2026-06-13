@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "typecheck": "tsc",
-    "build:ingest": "esbuild src/ingest/handler.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/ingest/index.mjs '--external:@aws-sdk/*' && cd dist/ingest && zip -r ../../ingest.zip index.mjs && cd ../.."
+    "build:ingest": "esbuild src/ingest/handler.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/ingest/index.mjs '--external:@aws-sdk/*' && cd dist/ingest && zip -r ../../ingest.zip index.mjs && cd ../..",
+    "build:api": "esbuild src/api/handler.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/api/index.mjs '--external:@aws-sdk/*' && cd dist/api && zip -r ../../api.zip index.mjs && cd ../..",
+    "build": "npm run build:ingest && npm run build:api"
   },
   "keywords": [],
   "author": "",
