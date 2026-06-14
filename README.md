@@ -47,7 +47,7 @@ Daily-Top-Movers/
 │   ├── package.json            # build scripts (esbuild → zip)
 │   └── tsconfig.json
 ├── frontend/                   # React + Vite SPA
-│   └── src/App.tsx             # fetches /movers, renders cards + chart
+│   └── src/App.tsx             # fetches /movers; stats, featured card, chart, watchlist
 ├── terraform/
 │   ├── main.tf                 # provider, default tags, S3 backend
 │   ├── variables.tf            # massive_api_key (sensitive)
